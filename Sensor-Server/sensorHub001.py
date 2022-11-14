@@ -32,12 +32,12 @@ light.sort()
 
 def smoke_sensor(ls):
 
-	i = random.randint(0,ls)
+	i = random.randint(0,(ls-1))
 	return smoke[i]
 
 def dist_sensor(ldis):
 
-	i = random.randint(0,ldis)
+	i = random.randint(0,(ldis-1))
 	return dist[i]
 
 def depth_sensor(ld,idep):
@@ -81,8 +81,9 @@ def light_sensor(ll,il,cl):
 	cl+=1
 	if(i>=ll or i<0):
 		i = il
-
-	return (light[i], i, cl)
+	ret_val = light[i]
+	print(ret_val,i)
+	return (ret_val, i, cl)
 
 
 
@@ -93,7 +94,7 @@ lt = len(temp)
 lh = len(hum)
 ll = len(light)
 
-HOST = "13.231.119.83"
+HOST = "18.183.150.22"
 PORT = 65432
 
 smoke_val = smoke_sensor(ls)
@@ -136,6 +137,9 @@ while(True):
 	(dep_val,idep) = depth_sensor(ld, idep)
 	(temp_val,itemp) = temp_sensor(lt, itemp)
 	(hum_val,ihum) = hum_sensor(lh, ihum)
-	(ligth_val, il, cl) = light_sensor(ll, il, cl)
-
+	light_ret_val = light_sensor(ll, il, cl)
+	print(light_ret_val)
+	light_val = light_ret_val[0]
+	il = light_ret_val[1]
+	cl = light_ret_val[2]
 

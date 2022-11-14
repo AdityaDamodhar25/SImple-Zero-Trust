@@ -1,13 +1,16 @@
 from pandas import *
 import time
 import random
+import socket
+import json
 
-Water_Level = read_csv("/home/robyn_1/Downloads/WaterLevel.csv")
-Smoke_Level = read_csv("/home/robyn_1/Downloads/Smoke.csv")
-Distance_Level = read_csv("/home/robyn_1/Downloads/Ultrasonic.csv")
-Temp_Level = read_csv("/home/robyn_1/Downloads/Temperature.csv")
-Hum_Level = read_csv("/home/robyn_1/Downloads/Humidity.csv")
-Light_Level = read_csv("/home/robyn_1/Downloads/Light.csv")
+
+Water_Level = read_csv("/home/ubuntu/WaterLevel.csv")
+Smoke_Level = read_csv("/home/ubuntu/Smoke.csv")
+Distance_Level = read_csv("/home/ubuntu/Ultrasonic.csv")
+Temp_Level = read_csv("/home/ubuntu/Temperature.csv")
+Hum_Level = read_csv("/home/ubuntu/Humidity.csv")
+Light_Level = read_csv("/home/ubuntu/Light.csv")
 
 depth = Water_Level['Water Depth/WaterLevel001.Average'].tolist()
 depth.sort()
@@ -90,6 +93,9 @@ lt = len(temp)
 lh = len(hum)
 ll = len(light)
 
+HOST = "13.231.119.83"
+PORT = 65432
+
 smoke_val = smoke_sensor(ls)
 dis_val = dist_sensor(ldis)
 
@@ -106,6 +112,14 @@ il = random.randint(0,(ll-1))
 light_val = light[il]
 cl = 2
 while(True):
+
+	D = {'smoke_i':smoke_val, 'dis_i':dis_val, 'dep_i':dep_val, 'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		s.connect((HOST, PORT))
+		sending_data = json.dumps(D).encode('utf-8')
+		s.sendall(sending_data)
+		data = s.recv(1024)
+	print(f"Received {data!r}")
 
 	print('Smoke Value:', smoke_val)
 	print('Distance Value:', dis_val)

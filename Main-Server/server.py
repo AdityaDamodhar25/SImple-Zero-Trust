@@ -8,10 +8,7 @@ PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
 
 field_names = ['smoke_i', 'dis_i', 'dep_i', 'temp_i', 'hum_i', 'light_i']
 
-with open('/home/ubuntu/Logs/logs.csv','a') as f_object:
-	writer_object = writer(f_object)
-	writer_object.writerow(field_names)
-	f_object.close
+
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 	s.bind((HOST, PORT))

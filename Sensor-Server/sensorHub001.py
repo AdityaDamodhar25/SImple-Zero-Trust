@@ -94,7 +94,7 @@ lt = len(temp)
 lh = len(hum)
 ll = len(light)
 
-HOST = "18.183.150.22"
+HOST = "35.78.69.205"
 PORT = 65432
 
 smoke_val = smoke_sensor(ls)

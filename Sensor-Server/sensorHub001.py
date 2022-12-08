@@ -32,58 +32,57 @@ light.sort()
 
 def smoke_sensor(ls):
 
-	i = random.randint(0,(ls-1))
-	return smoke[i]
+    i = random.randint(0,(ls-1))
+    return smoke[i]
 
 def dist_sensor(ldis):
 
-	i = random.randint(0,(ldis-1))
-	return dist[i]
+    i = random.randint(0,(ldis-1))
+    return dist[i]
 
 def depth_sensor(ld,idep):
 
-	i = idep + random.randint(-3,3)
-	if (i>=ld or i<0):
-		i = idep
-	return (depth[i],i)
+    i = idep + random.randint(-3,3)
+    if (i>=ld or i<0):
+        i = idep
+    return (depth[i],i)
 
 def temp_sensor(lt,itemp):
 
-	i = itemp + random.randint(-3,3)
-	if (i>=lt or i<0):
-		i = itemp
-	return (temp[i],i)
+    i = itemp + random.randint(-3,3)
+    if (i>=lt or i<0):
+        i = itemp
+    return (temp[i],i)
 
 def hum_sensor(lh,ihum):
 
-	i = ihum + random.randint(-3,3)
-	if (i>=lh or i<0):
-		i = ihum
-	return (hum[i],i)
+    i = ihum + random.randint(-3,3)
+    if (i>=lh or i<0):
+        i = ihum
+    return (hum[i],i)
 
 def light_sensor(ll,il,cl):
 
-	if cl<=240:
-		i = il + random.randint(-2,2)
+    if cl<=240:
+        i = il + random.randint(-2,2)
 
-	elif cl<=360:
-		i = il + random.randint(-3,0)
+    elif cl<=360:
+        i = il + random.randint(-3,0)
 
-	elif cl<=600:
-		i = il + random.randint(-2,2)
+    elif cl<=600:
+        i = il + random.randint(-2,2)
 
-	elif cl<= 720:
-		i = il + random.randint(0,3)
+    elif cl<= 720:
+        i = il + random.randint(0,3)
 
-	else:
-		cl = cl%720
+    else:
+        cl = cl%720
 
-	cl+=1
-	if(i>=ll or i<0):
-		i = il
-	ret_val = light[i]
-	print(ret_val,i)
-	return (ret_val, i, cl)
+    cl+=1
+    if(i>=ll or i<0):
+        i = il
+    ret_val = light[i]
+    return (ret_val, i, cl)
 
 
 
@@ -94,7 +93,7 @@ lt = len(temp)
 lh = len(hum)
 ll = len(light)
 
-HOST = "35.78.69.205"
+HOST = "18.183.218.145" 
 PORT = 65432
 
 smoke_val = smoke_sensor(ls)
@@ -114,32 +113,24 @@ light_val = light[il]
 cl = 2
 while(True):
 
-	D = {'smoke_i':smoke_val, 'dis_i':dis_val, 'dep_i':dep_val, 'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
-	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-		s.connect((HOST, PORT))
-		sending_data = json.dumps(D).encode('utf-8')
-		s.sendall(sending_data)
-		data = s.recv(1024)
-	print(f"Received {data!r}")
+    D = {'smoke_i':smoke_val, 'dis_i':dis_val, 'dep_i':dep_val, 'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        sending_data = json.dumps(D).encode('utf-8')
+        s.sendall(sending_data)
 
-	print('Smoke Value:', smoke_val)
-	print('Distance Value:', dis_val)
-	print('Depth Value:', dep_val)
-	print('Temperature Value:', temp_val)
-	print('Humidity Value:', hum_val)
-	print('Light Value:', light_val)
-	print()
+    print('Sent Data')
 
-	time.sleep(5)
+    time.sleep(5)
 
-	smoke_val = smoke_sensor(ls)
-	dis_val = dist_sensor(ld)
-	(dep_val,idep) = depth_sensor(ld, idep)
-	(temp_val,itemp) = temp_sensor(lt, itemp)
-	(hum_val,ihum) = hum_sensor(lh, ihum)
-	light_ret_val = light_sensor(ll, il, cl)
-	print(light_ret_val)
-	light_val = light_ret_val[0]
-	il = light_ret_val[1]
-	cl = light_ret_val[2]
+    smoke_val = smoke_sensor(ls)
+    dis_val = dist_sensor(ld)
+    (dep_val,idep) = depth_sensor(ld, idep)
+    (temp_val,itemp) = temp_sensor(lt, itemp)
+    (hum_val,ihum) = hum_sensor(lh, ihum)
+    light_ret_val = light_sensor(ll, il, cl)
+    print(light_ret_val)
+    light_val = light_ret_val[0]
+    il = light_ret_val[1]
+    cl = light_ret_val[2]
 

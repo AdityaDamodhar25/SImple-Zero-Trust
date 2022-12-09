@@ -2,7 +2,12 @@ from pandas import *
 import time
 import random
 import socket
-import json
+import hashlib
+import rsa
+import pyaes
+import secrets
+import pickle
+
 
 
 Water_Level = read_csv("/home/ubuntu/WaterLevel.csv")
@@ -33,33 +38,33 @@ light.sort()
 def smoke_sensor(ls):
 
     i = random.randint(0,(ls-1))
-    return smoke[i]
+    return round(smoke[i],5)
 
 def dist_sensor(ldis):
 
     i = random.randint(0,(ldis-1))
-    return dist[i]
+    return round(dist[i],5)
 
 def depth_sensor(ld,idep):
 
     i = idep + random.randint(-3,3)
     if (i>=ld or i<0):
         i = idep
-    return (depth[i],i)
+    return (round(depth[i],5),i)
 
 def temp_sensor(lt,itemp):
 
     i = itemp + random.randint(-3,3)
     if (i>=lt or i<0):
         i = itemp
-    return (temp[i],i)
+    return (round(temp[i],5),i)
 
 def hum_sensor(lh,ihum):
 
     i = ihum + random.randint(-3,3)
     if (i>=lh or i<0):
         i = ihum
-    return (hum[i],i)
+    return (round(hum[i],5),i)
 
 def light_sensor(ll,il,cl):
 
@@ -81,7 +86,7 @@ def light_sensor(ll,il,cl):
     cl+=1
     if(i>=ll or i<0):
         i = il
-    ret_val = light[i]
+    ret_val = round(light[i],5)
     return (ret_val, i, cl)
 
 
@@ -93,35 +98,59 @@ lt = len(temp)
 lh = len(hum)
 ll = len(light)
 
-HOST = "18.183.218.145" 
-PORT = 65432
+HOST = "18.181.187.174" 
+PORT = 65432    
 
 smoke_val = smoke_sensor(ls)
-dis_val = dist_sensor(ldis)
+dis_val = round( dist_sensor(ldis),5)
 
 idep = random.randint(0,(ld-1))
-dep_val = depth[idep]
+dep_val = round(depth[idep],5)
 
 itemp = random.randint(0,(lt-1))
-temp_val = temp[itemp]
+temp_val = round(temp[itemp],5)
 
 ihum = random.randint(0,(lh-1))
-hum_val = hum[ihum]
+hum_val = round(hum[ihum],5)
 
 il = random.randint(0,(ll-1))
-light_val = light[il]
+light_val = round(light[il],5)
 cl = 2
 while(True):
 
-    D = {'smoke_i':smoke_val, 'dis_i':dis_val, 'dep_i':dep_val, 'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        sending_data = json.dumps(D).encode('utf-8')
-        s.sendall(sending_data)
+    D1 = {'smoke_i':smoke_val, 'dis_i':dis_val, 'dep_i':dep_val}
+    D2 = {'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
+    password = b'12345'
+    pass_hash = hashlib.sha256(password).hexdigest()
+    s.sendall(pass_hash.encode())
+    data = s.recv(1024)
+    instruction = data.decode('utf-8')
+    if (instruction != 'go'):
+        print('Incorrect passkey, Authentication Failed. Connection closed')
+        s.close()
+        try:
+            s.sendall(b'ping')
+            print('Incorrect working, connection still open')
+        except:
+            print('Correct Working, connection closed')
+        continue
+    else:
+        print('Accurate passkey, Autheticated')
+    sending_data = pickle.dumps(D1)
+    print(len(sending_data))
+    pub_ser_b1 = s.recv(2048)
+    pub_ser_1 = pickle.loads(pub_ser_b1)
+    encrypted = rsa.encrypt(sending_data, pub_ser_1)
+    s.sendall(encrypted)
+    sending_data = pickle.dumps(D2)
+    print(len(sending_data))
+    encrypted = rsa.encrypt(sending_data, pub_ser_1)
+    s.sendall(encrypted)
+
 
     print('Sent Data')
-
-    time.sleep(5)
 
     smoke_val = smoke_sensor(ls)
     dis_val = dist_sensor(ld)
@@ -129,8 +158,15 @@ while(True):
     (temp_val,itemp) = temp_sensor(lt, itemp)
     (hum_val,ihum) = hum_sensor(lh, ihum)
     light_ret_val = light_sensor(ll, il, cl)
-    print(light_ret_val)
     light_val = light_ret_val[0]
     il = light_ret_val[1]
     cl = light_ret_val[2]
+    s.close()
+    try:
+        s.sendall(b"ping")
+        print("Connection open")
+    except:
+        print("Connection closed")
+    time.sleep(5)
+
 

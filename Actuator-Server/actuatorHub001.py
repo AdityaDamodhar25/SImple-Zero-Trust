@@ -16,6 +16,8 @@ l = len(func_names)
 while True:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
+    go = s.recv(1024)
+    print('Received {go}')
     password = b'12345'
     pass_hash = hashlib.sha256(password).hexdigest()
     s.sendall(pass_hash.encode())

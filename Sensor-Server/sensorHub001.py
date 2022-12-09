@@ -4,8 +4,6 @@ import random
 import socket
 import hashlib
 import rsa
-import pyaes
-import secrets
 import pickle
 
 
@@ -122,6 +120,8 @@ while(True):
     D2 = {'temp_i':temp_val, 'hum_i':hum_val, 'light_i':light_val}
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
+    go = s.recv(1024)
+    print(f'Received {go}')
     password = b'12345'
     pass_hash = hashlib.sha256(password).hexdigest()
     s.sendall(pass_hash.encode())
@@ -167,6 +167,4 @@ while(True):
         print("Connection open")
     except:
         print("Connection closed")
-    time.sleep(5)
-
 

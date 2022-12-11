@@ -4,7 +4,7 @@ import time
 import rsa
 import hashlib
 
-HOST = "18.181.187.174" 
+HOST = "43.207.32.202" 
 PORT = 54321
 
 
@@ -34,24 +34,22 @@ while True:
         continue
     else:
         print('Accurate passkey, Autheticated')
-    pub_act, priv_act = rsa.newkeys(1024)
-    pub_ser_2_b = s.recv(1024)
-    pub_ser_2 = pickle.loads(pub_ser_2_b)
-    s.sendall(pickle.dumps(pub_act))
-    text = func_names[i]
-    i+=1
-    if i == l:
-        i = 0
-        index +=1
-    sending_text = text+','+str(index)
-    sending_data = sending_text.encode('UTF-8')
-    sending_data_enc = rsa.encrypt(sending_data, pub_ser_2)
-    s.sendall(sending_data_enc)
-    data_enc = s.recv(1024)
-    print('Received Data')
-    data = rsa.decrypt(data_enc, priv_act)
-    D = pickle.loads(data)
-    print(f"Received {D}")
+    s.sendall(pickle.dumps(l))
+    for i in range(l):
+        pub_act, priv_act = rsa.newkeys(1024)
+        pub_ser_2_b = s.recv(1024)
+        pub_ser_2 = pickle.loads(pub_ser_2_b)
+        s.sendall(pickle.dumps(pub_act))
+        text = func_names[i]
+        sending_text = text+','+str(index)
+        sending_data = sending_text.encode('UTF-8')
+        sending_data_enc = rsa.encrypt(sending_data, pub_ser_2)
+        s.sendall(sending_data_enc)
+        data_enc = s.recv(1024)
+        print('Received Data')
+        data = rsa.decrypt(data_enc, priv_act)
+        D = pickle.loads(data)
+        print(f"Received {D}")
     s.close()
     try:
         s.sendall(b'ping')

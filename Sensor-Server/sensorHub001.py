@@ -139,18 +139,17 @@ while(True):
     else:
         print('Accurate passkey, Autheticated')
     sending_data = pickle.dumps(D1)
-    print(len(sending_data))
     pub_ser_b1 = s.recv(2048)
+    print('Received Main server Public Key')
     pub_ser_1 = pickle.loads(pub_ser_b1)
     encrypted = rsa.encrypt(sending_data, pub_ser_1)
     s.sendall(encrypted)
     sending_data = pickle.dumps(D2)
-    print(len(sending_data))
     encrypted = rsa.encrypt(sending_data, pub_ser_1)
     s.sendall(encrypted)
 
 
-    print('Sent Data')
+    print('Sent Encrypted Data')
 
     smoke_val = smoke_sensor(ls)
     dis_val = dist_sensor(ld)

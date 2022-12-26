@@ -25,7 +25,7 @@ This work has the following objectives:
 
 The report is structured as follows: the literature considered and their key points are first described, post which there is a detailed explanation of Zero-Trust model, followed by the methodology adopted by the project. Prior to the design of the Zero-Trust model, an IoT network is simulated and the architecture and working is explained. This is followed by the description of the implemented Zero-Trust model, and the explanation of what principles each change satisfies. This is followed by the description of the physical IoT network built to match the architecture of the simulated IoT network, and illustrates the deployment of the Zero-Trust model in the same. This is finally followed by an illustration of capabilities of a malicious agent, who is assumed to have compromised and escalated privileges in one of the IoT devices.
 
-### LITERATURE SURVEY:
+### 2. LITERATURE SURVEY:
 
 In the article by Buck et al [1], the authors provide an overview on the current trends and research interests in the field of Zero-Trust security. Equal importance is given to grey literature as well, apart from academic literature due to the pioneering work in implementations done by the industry.
 
@@ -37,7 +37,7 @@ In the IEEE paper by Palmo et al [5], the authors provide insight into a Softwar
 
 The article by Mahajan et al. [4] provides insight into basics of IoT, and the necessary description of the simple IoT network envisioned for this project. It describes the components required and working for an IoT based Smart Refrigerator, and the methodology used for the working of the same. We have taken inspiration from the same to build the physical IoT network on which the constructed Zero-Trust model is deployed.
 
-### THE ZERO-TRUST PARADIGM
+### 3. THE ZERO-TRUST PARADIGM
 
 All traditional security models are based on trust. Some networks are trusted, some users are trusted and some devices are trusted. This trust boundary is established by very stringent firewalls, rigorous whitelisting of data and constant monitoring of all incoming and outgoing data. This security model has been relatively successful, barring one special case of malicious actors, i.e. the malicious insider. This is the scenario where a user, device or network classified as “trusted” acts as the source of malicious activity. In this case, the basic premise of the security system fails, and the malicious agent wrecks havoc on the network. 
 
@@ -47,5 +47,34 @@ One of the advantages of the Zero-Trust model is that it is platform agnostic. T
 It must be noted that the smaller components of security, namely firewalls, VPNs, whitelists, access control mechanisms, intrusion prevention systems, cryptography, etc. are not obsolete in this model, rather their method of deployment is altered. They are used extensively in the boundaries between segments, for encrypting all communications of the network, and to provide access to resources on the need-only basis. Apart from all this, all data is logged and stored for future reference.
 
 ![Sample Zero Trust Process Flowchart](https://user-images.githubusercontent.com/66631868/209555723-ef844b8c-a620-4c2f-8a6c-da4791e40c6f.png)
+
 _Figure 1: Zero - Trust Process Flowchart_
+
+### 4. METHODOLOGY:
+
+Keeping in mind principles of Zero-Trust, an IoT network is simulated, and then zero-trust security is implemented. Post implementation, an actual IoT set-up is constructed and the zero-trust is translated into this physical network. A home automation network is simulated because of simplicity in the types of sensors used, and intuitive knowledge of data that has to be processed. 
+
+![Architecture of IoT Network system](https://user-images.githubusercontent.com/66631868/209577665-06602422-aca6-4199-97c4-abd62987eac2.png)
+
+_Figure 2: Architecture of IoT Network system._
+
+### 4.1 SIMULATED IOT NETWORK:
+
+This IoT network becomes the testing ground to deploy the Zero-Trust model. The architecture of this network is designed keeping the aspects of segmentation and localization in mind. Home automation systems are generally controlled by a central server, either set locally, or in the cloud. All sensors collect and send their data to this server, logs the data and communications, and takes a decision based off the same. It then instructs the actuators to perform necessary actions.
+
+This traditional architecture believes that all nodes on the network, i.e. the sensors and actuators are trusted. Thus, compromise of the internet module of these devices exposes the main server to attack, thus resulting in the loss of personal data. Thus, while implementing the Zero-Trust network architecture, this work segments the functions of the main server into three smaller servers so as to minimise risk associated with usage of vulnerable IoT devices.
+
+
+![List of Sensors Simulated in Azure IoT Central](https://user-images.githubusercontent.com/66631868/209577752-4696b1df-3219-4ae4-92f4-1f79ec537812.png)
+
+_Figure 3: List of Sensors Simulated in Azure IoT Central._
+
+This smart home system segments the main server generally used by other smart-home systems. It divides the single server into three, namely main server, sensor server and actuator server. The sensor server performs the job of collecting data from the sensors and sending it to the main server. It also maintains information about the health of the sensors. The actuator server acts as the point-of-contact between the main server and any deployed actuator. This server keeps track of the status and health of actuators as well. The main server acts as the mediator between the other two servers, while performing the function of logging.
+This design keeps in mind the ideas of Zero_Trust, thus segmenting and localising risk. The points of vulnerability are known to be the IoT devices, and may even extend to locally deployed server nodes. Thus, the damage is localised to only either the sensors or the actuators when there is a compromise in any of the above. In this case, the main server and the logged data are totally isolated from the region of compromise. 
+
+All servers are simulated on Amazon Web Services Elastic Compute Cloud (EC2 instances). Python3 is the primary choice of programming language, and Socket programming is used for all communications. This is due to the low-level control offered by sockets, which is helpful to customise the network to match our security requirements. The data for the IoT network to run on is simulated using Azure IoT Central, which generates telemetry based on device templates defined by the user.
+
+### 4.1.1 SENSOR SERVER:
+
+The sensor server as described above has the function of collecting data from the sensors and presenting it to the main server. The data to be collected in this simulation was generated prior from Microsoft Azure’s IoT Central, and stored as .csv files in the sensor server. It is then retrieved and sent to the main server when required.
 

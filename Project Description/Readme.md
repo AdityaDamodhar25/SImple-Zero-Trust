@@ -1,1 +1,1 @@
-#SIMPLE ZERO TRUST
+Contains images for report

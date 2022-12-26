@@ -46,6 +46,6 @@ Improving security comes as a result of changing the model of trust. Zero-Trust 
 One of the advantages of the Zero-Trust model is that it is platform agnostic. The same principles can be applied to all platforms and networks, achieving the expected result. It is also highly scalable, for the newer segments of the network can be integrated along with older segments effectively. It can effectively replace an existing system, as the architecture of the Zero-Trust system is inside-out, i.e. smaller segments are completely secured prior to integrating all segments together. Once the segments are integrated, the connections between segments are secured as well.
 It must be noted that the smaller components of security, namely firewalls, VPNs, whitelists, access control mechanisms, intrusion prevention systems, cryptography, etc. are not obsolete in this model, rather their method of deployment is altered. They are used extensively in the boundaries between segments, for encrypting all communications of the network, and to provide access to resources on the need-only basis. Apart from all this, all data is logged and stored for future reference.
 
-![Sample Zero - Trust Process Flowchart](Project Description/Report Images/Sample Zero Trust Process Flowchart.png)
+![Sample Zero - Trust Process Flowchart]((https://github.com/AdityaDamodhar25/SImple-Zero-Trust/blob/main/Project%20Description/Report%20Images/Sample%20Zero%20Trust%20Process%20Flowchart.png))
 _Figure 1: Zero - Trust Process Flowchart_
 

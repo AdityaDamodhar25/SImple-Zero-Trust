@@ -148,3 +148,154 @@ _Figure 15: Developed Real Time IoT Network_
 
 The Sensor Server is implemented using a Raspberry pi 4, with the ultrasonic sensor HC-SR04 and temperature sensor DHT-11 interfaced via the GPIO pins. DHT-11 can also measure atmospheric humidity, but the project neglects that functionality. The Main Server is still implemented on the cloud, i.e. the AWS Electronic Compute Cloud (EC2) instance is used. It functions similar to the initial functioning of the Main Server instance, only changing the number of data types it stores. The Actuator Server is also deployed on a Raspberry pi 4, with a Servo motor and LEDs and Buzzer interfaced via the GPIO pins. 
 
+![Main server messages](https://user-images.githubusercontent.com/66631868/209839113-bc6ee445-cbd2-44b1-91c0-dbc80b119083.png)
+
+_Figure 16: Main Server Message_
+
+![Sensor Server Message](https://user-images.githubusercontent.com/66631868/209839576-60e54efd-9875-4a74-976f-20695cb9ef2b.png)
+
+_Figure 17: Sensor Server Initial Message_
+
+![Actuator Server First Message](https://user-images.githubusercontent.com/66631868/209840303-186a719f-23fc-41f3-95b0-004ded8603e7.png)
+
+_Figure 18: Actuator Server Initial Message_
+
+The LEDs and Buzzer are set to alert the status of egg availability periodically, with a flash of green LED when the closest egg to the sensor is within a threshold (say 15 cm), and the flashing of red LED and a Buzzer sound when the closest egg to the sensor is beyond the threshold. The user is assumed to remove eggs closest to the sensor first in order for the demo model to work. The demo is performed by placing an obstacle at different distances from the sensor and observing the LED alerts.
+
+![Distance within threshold](https://user-images.githubusercontent.com/66631868/209840407-f3b64f70-bb36-4760-a4ca-fbe2f6adb6af.jpeg)
+
+_Figure 19: Object within Threshold, Green LED_
+
+![Sensor Server Distance 1](https://user-images.githubusercontent.com/66631868/209848215-92d58972-03a4-43a4-9d94-88b1c63e1af7.png)
+
+_Figure 20: Sensor Server Functioning for Object within Threshold_
+
+![Actuator Server Distance 1](https://user-images.githubusercontent.com/66631868/209848314-af24d8b6-5d96-48cc-8e31-583f46ab722c.png)
+
+_Figure 21: Actuator Server Functioning for object within Threshold_
+
+![Distance Beyond Threshold](https://user-images.githubusercontent.com/66631868/209848365-e814725a-51fa-44ce-8880-218d802f7ca4.jpeg)
+
+_Figure 22: Object beyond Threshold, Red LED_
+
+![Sensor Server Distance 2](https://user-images.githubusercontent.com/66631868/209848451-f43a2c00-01f1-4d2d-af94-946927cd52c0.png)
+
+_Figure 23: Sensor Server Functioning for Object beyond Threshold_
+
+![Actuator Server Distance 2](https://user-images.githubusercontent.com/66631868/209848512-49777673-8988-4b92-80d0-086be3e65197.png)
+
+_Figure 24: Actuator Server Functioning for object beyond Threshold_
+
+At the start of the system, the Servo motor is set to minimum Cooling Intensity configuration, and is changed to higher levels as the ambient temperature data is received. When any new bodies with higher temperature are introduced to the cooling chamber, the ambient temperature varies, which is read by the DHT-11. This data when received by the Actuator Server changes the configuration of the Servo motor to increase Cooling-Intensity accordingly.
+
+![Initial Configuration](https://user-images.githubusercontent.com/66631868/209848628-c0dd191f-3fc4-420a-84ed-ab4259d2cb2b.jpeg)
+
+_Figure 25: Initial Configuration of Servo_
+
+![Heating](https://user-images.githubusercontent.com/66631868/209848723-8c32e30f-066a-44e5-ab7a-96a803e9b867.jpeg)
+
+_Figure 26: Using Hot Metal Water Bottle to increase Ambient Temperature_
+
+![Sensor Server Temperature increase 1](https://user-images.githubusercontent.com/66631868/209848800-4bf7bedf-3818-46d5-9624-62154a6de099.png)
+
+_Figure 27: First Rise in Temperature Read by Sensor Server_
+
+![Actuator Server Temperature increase 1](https://user-images.githubusercontent.com/66631868/209848862-8cfcfd93-fe6a-4d57-85ae-be4b2bab944c.png)
+
+_Figure 28: First Rise in Temperature processed by Actuator Server_
+
+![Temperature Increase 1](https://user-images.githubusercontent.com/66631868/209848913-530c4344-8d34-4166-b5ba-5a43c847adda.jpeg)
+
+_Figure 29: First Adjustment by Servo Motor_
+
+![Sensor Server Temperature increase 2](https://user-images.githubusercontent.com/66631868/209848987-eb031315-06ef-493a-ad08-2f1ecb438a58.png)
+
+_Figure 30: Second Rise in Temperature Read by Sensor Server_
+
+![Actuator Server Temperature increase 2](https://user-images.githubusercontent.com/66631868/209849108-6ac32942-de6d-494a-a827-0decf58d66f0.png)
+
+_Figure 31: Second Rise in Temperature processed by Actuator Server_
+
+![Temperature increase 2](https://user-images.githubusercontent.com/66631868/209849224-c8a4001f-73de-4233-91f9-27b0447fe5a4.jpeg)
+
+_Figure 32: Second Adjustment by Servo Motor_
+
+![Sensor Server Temperature increase 3](https://user-images.githubusercontent.com/66631868/209849220-82c46562-0d83-4754-842f-d052e5220caa.png)
+
+_Figure 33: Third Rise in Temperature Read by Sensor Server_
+
+![Actuator Server Temperature increase 3](https://user-images.githubusercontent.com/66631868/209849189-7d645b79-3867-4bac-9d48-f81f07107ef9.png)
+
+_Figure 34: Third Rise in Temperature processed by Actuator Server_
+
+![Temperature increase 3](https://user-images.githubusercontent.com/66631868/209849229-3bc839d1-63a8-4e5c-8d9b-47c47b0dce52.jpeg)
+
+_Figure 35: Third Adjustment by Servo Motor_
+
+The Main Server encrypts all data using the RSA algorithm, and stores all the data as Hexadecimal values in the logs, thus ensuring secrecy in the event of a compromise in the security of the Main Server. The Logs of encrypted data are illustrated below in Figure 33.
+
+![Encrypted Logs](https://user-images.githubusercontent.com/66631868/209849199-969eee0a-7d9a-4be6-b97e-3a1b9292ef6e.png)
+
+_Figure 36: Encrypted Logs on Main Server_
+
+### 4.4 DEMONSTRATING SECURITY:
+
+This project is an attempt at using the Zero-Trust ideology to secure an IoT network, thus security testing is performed directly on the physical implementation of the network. The scenario where an adversary discovers a Security Misconfiguration in the Raspberry Pi 4 used as Sensor Server, i.e. unchanged default username and password. This is part of the OWASP Top 10:2021 [6], specifically A05 Security Misconfiguration, and holds the position for the fifth most common vulnerability, with an expected increase in occurrence with the industry moving towards highly configurable software.
+
+The default username and password of the Raspberry pi account on Raspbian OS is pi and default respectively. It must be noted that Raspbian OS is notoriously insecure in the fact that it does not prompt for the root user password when commands on the terminal are preceded by the sudo keyword, thus it can be assumed that when an adversary gains remote access to the Raspberry pi server, they assume root privileges, thus compromising the system completely. 
+
+The adversary gains access to the system while the program is running and can view all the other processes running. They can then end the python process which is the original program for the Sensor Server can be ended, and the adversary can attempt to connect with the Main Server.
+
+![Adversary Viewing processes](https://user-images.githubusercontent.com/66631868/209849585-c336c9b0-043c-441c-9627-6d65dce9ea84.png)
+
+_Figure 37: Adversary viewing all processes_
+
+In the initial attempt, the adversary fails to connect as the Main Server accepts connection requests only at specific intervals in time, post which it is dormant to all communication requests. It is designed to sequentially accept requests from the Sensor server first, then the Actuator server, communicating with each of them in a fixed fashion prior to terminating connections. Thus, unless the adversary follows the exact same format for communication, the entire system fails, and the owners are alerted to the failure of the system, prompting an inspection.
+
+![Adversary killing process](https://user-images.githubusercontent.com/66631868/209849578-bc692351-04db-409e-9641-f816e37fea95.png)
+
+_Figure 38: Adversary killing legitimate processes_
+
+![Main server Ending process](https://user-images.githubusercontent.com/66631868/209849593-43d7fa21-6afc-4873-8c72-660417cec323.png)
+
+_Figure 39: Main Server error_
+
+In the event of the adversary matching the timing of the request perfectly, the Main Server expects the SHA-256 hash of a predefined password for authentication of the Sensor Server. Failure to provide the same will cause the system to fail as well, alerting the owners and causing an inspection.
+
+![Main server closing connection](https://user-images.githubusercontent.com/66631868/209849591-b4a21874-1c79-4f90-84c9-4f909fb7bcb1.png)
+
+_Figure 40: Main Server closing connection_
+
+![Adversary Unable to connect](https://user-images.githubusercontent.com/66631868/209849581-7c2381aa-e518-4313-a86f-caae5afb8c4a.png)
+
+_Figure 41: Adversary unable to connect_
+
+As the Raspbian OS does not prompt for root passwords when executing commands, the adversary can then view the code running on the initial server, and can identify the password being used to bypass the authentication mechanism of the Main Server. This vulnerability is also part of the OWASP Top 10:2021 [6], under the section A02 Cryptographic Failures. This leakage of sensitive data is exploited by the adversary to view the working of the communication between the Main Server and Sensor Server. 
+
+![Cryptographic Failure](https://user-images.githubusercontent.com/66631868/209849589-ce300b48-9046-4b63-9788-6ebd21bcd19a.png)
+
+_Figure 42: Cryptographic Failure_
+
+Despite the adversary gaining access to the Main Server, they are unable to request the data stored in Logs due to design of the system. The only communication to the Sensor Server enabled is the sharing of the RSA public key. This Security by Design is the original idea of Zero-Trust as proposed by Kindervag [3]. Following this principle, the Main Server is designed to communicate very briefly with the Sensor Server, share the Public Key for encryption, receive the current data from the servers and immediately cease connection, closing the socket. It cannot be requested to send any data as it does not even support the functionality, and connection by any other socket is impossible because of the firewall blocking all other ports. Thus, while the real-time data can be stolen, all historical data stored in logs are secured. 
+
+
+### 5. CONCLUSION
+
+This work has been an attempt to demonstrate the principles of Zero-Trust security in an IoT setting, which is insecure by nature. Thus, following the principle of Security by Design, we have illustrated how data can be safeguarded from attacks by a malicious intruder, who has managed to completely compromise one of the three main servers of the architecture. 
+
+The usage of temperature sensor, and ultrasonic sensor must be viewed as a placeholder for more significant and critical data such as monitoring a patient in a medical scenario, or the atmospheric conditions of a room containing artefacts. In these scenarios, the security of the data is of paramount importance, both in such that they cannot be tampered with, nor stolen. Thus, implementation of similarly designed networks in those scenarios would improve the security of the insecure IoT devices.
+
+### 5.1 FUTURE SCOPE:
+
+This is a very primitive implementation, and by taking into account the recommendations of industry standard practices, the security can be improved drastically. The security testing done is also very limited in scope and following the standards of an Industrial Red-teaming operation, i.e. thorough examination of the network by taking offensive action against the security will demonstrate the existence of further security flaws. 
+
+This system currently lacks an Intrusion Detection and Prevention System (IDPS), nor is it robust. Thus the inclusion of an IDPS will further improve security as the IDPS will notify the administrator in the event of a breach, while the secure architecture followed by Zero-Trust based network will localise the threat, thus preventing the spread of the adversaries’ influence beyond a point. The robustness of the system must be improved such that the entire system does not fail in the event of an adversary’s attack, rather utilises the IDPS to identify the same and report it to the administrators.
+
+### REFERENCES:
+
+1. Buck, C. Olenberger, C. Schweizer, A. Völter, F. and Eymann, T. (2021) ‘Never trust, always verify: A multivocal literature review on current knowledge and research gaps of zero-trust’, Computers & Security 110 102436
+2. Friedman, J. (2020) ‘Definitive Guide to Zero Trust Security’
+3. Kindervag, J. (2010) ‘Build Security Into Your Network’s DNA: The Zero Trust Network Architecture’
+4. Mahajan, M. P. Nikam, R. R. Patil, V. P. Dond, R. D. (2017) ‘Smart Refrigerator Using IOT’, International Journal of Latest Engineering Research and Applications (IJLERA), Volume – 02, Issue – 03,  PP – 86-91
+5. Palmo, Y. Tanimoto, S. Sato, S. and Kanai, A. (2021) ‘A Consideration of Scalability for Software Defined Perimeter Based on the Zero-trust Model’, 10th International Congress on Advanced Applied Informatics (IIAI-AAI)
+6. owasp.org/Top10/

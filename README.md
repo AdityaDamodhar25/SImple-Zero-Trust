@@ -8,8 +8,8 @@ The efficiency of the implemented Zero-Trust network will be scrutinised, and po
 
 ### CONTENTS
 
-1. .[INTRODUCTION](### 1. INTRODUCTION:)
-     1. .[OBJECTIVES](##### 1.1. OBJECTIVES:)
+1. .[INTRODUCTION](###1-INTRODUCTION:)
+     1. .[OBJECTIVES](#####1.1-OBJECTIVES:)
 2. LITERATURE SURVEY
 3. ZERO TRUST PARADIGM
 4. METHODOLOGY
@@ -21,8 +21,8 @@ The efficiency of the implemented Zero-Trust network will be scrutinised, and po
      3. PHYSICAL IoT IMPLEMENTATION
      4. DEMONSTRATING SECURITY
 5. CONCLUSION
-     1. .[FUTURE SCOPE](### 5.1 FUTURE SCOPE:)
-.[REFERENCES](### REFERENCES:)
+     1. .[FUTURE SCOPE](###5.1-FUTURE SCOPE:)
+.[REFERENCES](###REFERENCES:)
 
 ### 1. INTRODUCTION:
 Internet-of-Things (IoT) is one the key concepts leading into Industry 4.0. It is the integration of all devices over a single network, effectively communicating to one another, setting up a continuous stream of data allowing all devices on the network to access the same for effective decision-making, thus improving the state-of-art of industries. All this data is freely accessible and is stored on low-power, limited capability IoT devices, thus severely crippling the security for the same. The state of the cyber-landscape is such that the more integrated and exposed a system is, the easier it is for malicious actors to exploit the same. IoT is particularly at risk, due to low grade of security in IoT devices. 

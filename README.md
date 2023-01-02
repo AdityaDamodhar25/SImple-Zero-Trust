@@ -8,8 +8,8 @@ The efficiency of the implemented Zero-Trust network will be scrutinised, and po
 
 ### CONTENTS
 
-1. [INTRODUCTION](###1-INTRODUCTION:)
-     1. .[OBJECTIVES](#####1.1-OBJECTIVES:)
+1. [INTRODUCTION](### 1. INTRODUCTION:)
+     1. [OBJECTIVES](##### 1.1. OBJECTIVES:)
 2. LITERATURE SURVEY
 3. ZERO TRUST PARADIGM
 4. METHODOLOGY

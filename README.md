@@ -7,6 +7,7 @@ Our project titled “Trust-Free Homes: An Analysis of Performance and Scalabili
 The efficiency of the implemented Zero-Trust network will be scrutinised, and possible improvements to implementations will be tried. This project is aimed at serving as a guide to a working model of the Zero-Trust guidelines.
 
 [INTRODUCTION](#1.-INTRODUCTION)
+[OBJECTIVES](#1.1.-OBJECTIVES)
 
 ### 1. INTRODUCTION
 Internet-of-Things (IoT) is one the key concepts leading into Industry 4.0. It is the integration of all devices over a single network, effectively communicating to one another, setting up a continuous stream of data allowing all devices on the network to access the same for effective decision-making, thus improving the state-of-art of industries. All this data is freely accessible and is stored on low-power, limited capability IoT devices, thus severely crippling the security for the same. The state of the cyber-landscape is such that the more integrated and exposed a system is, the easier it is for malicious actors to exploit the same. IoT is particularly at risk, due to low grade of security in IoT devices. 

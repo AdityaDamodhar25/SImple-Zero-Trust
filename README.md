@@ -1,4 +1,4 @@
-# SImple-Zero-Trust
+# SIMPLE-ZERO-TRUST
 
 # ABSTRACT:
 

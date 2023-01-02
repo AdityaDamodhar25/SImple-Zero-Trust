@@ -49,7 +49,7 @@ Zero-Trust has an edge over perimeter based security because of the human factor
 
 Despite the obvious advantages in adopting Zero-Trust, it still is an idea, and there is no codification in guidelines of adoption. There are multiple implementations by multiple organisations, each tailoring the guidelines to match their requirements. The lack of standardisation, combined with the need for investment in changing the landscape of the internal network have been major detriments to the adoption of this paradigm.
 
-## 1.1. OBJECTIVES:
+## 1.1 OBJECTIVES:
 This work has the following objectives:
 - Simulate an IoT network by building everything from the basic connections and implementing a basic security model in accordance to the Zero-Trust principles.
 - Verify the adaptability of the security model by deploying it in a similar IoT network.
@@ -69,7 +69,7 @@ In the IEEE paper by Palmo et al [5], the authors provide insight into a Softwar
 
 The article by Mahajan et al. [4] provides insight into basics of IoT, and the necessary description of the simple IoT network envisioned for this project. It describes the components required and working for an IoT based Smart Refrigerator, and the methodology used for the working of the same. We have taken inspiration from the same to build the physical IoT network on which the constructed Zero-Trust model is deployed.
 
-# 3. THE ZERO-TRUST PARADIGM
+# 3. THE ZERO-TRUST PARADIGM:
 
 All traditional security models are based on trust. Some networks are trusted, some users are trusted and some devices are trusted. This trust boundary is established by very stringent firewalls, rigorous whitelisting of data and constant monitoring of all incoming and outgoing data. This security model has been relatively successful, barring one special case of malicious actors, i.e. the malicious insider. This is the scenario where a user, device or network classified as “trusted” acts as the source of malicious activity. In this case, the basic premise of the security system fails, and the malicious agent wrecks havoc on the network. 
 

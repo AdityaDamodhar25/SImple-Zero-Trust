@@ -1,18 +1,44 @@
 # SImple-Zero-Trust
 
-### ABSTRACT
+### ABSTRACT:
 
 The Internet of Things (IoT) is one of the novel concepts which has taken the world by storm. The ability to integrate regular home appliances on the internet allowing remote access from anywhere has been progressing rapidly. Although the technology holds many advantages, the security concerns in these systems make them double-edged swords. Zero-Trust has been introduced in the security industry as the answer to most cyber threats present. The segmentation of access rights, even within internal nodes of the system is a key feature of this model.
 Our project titled “Trust-Free Homes: An Analysis of Performance and Scalability of the Zero-Trust paradigm in Smart Home systems”, aims at implementing a Zero - Trust System to analyse its capabilities in IoT networks. The limited capabilities of IoT devices makes running multiple key-generation algorithms, and key-storage a point of concern, and implementing Zero-Trust without affecting their regular functioning at scale is a challenge. The project will be carried out by simulating the behaviour of IoT devices using Azure’s simulation capabilities for modelling the network, then using Python for implementing a working system on a very small IoT network.
 The efficiency of the implemented Zero-Trust network will be scrutinised, and possible improvements to implementations will be tried. This project is aimed at serving as a guide to a working model of the Zero-Trust guidelines.
 
-[INTRODUCTION](#1-INTRODUCTION)
+### CONTENTS:
 
-[OBJECTIVES](#11-OBJECTIVES)
+1. [INTRODUCTION](#1-INTRODUCTION)
+    
+    1.[OBJECTIVES](#11-OBJECTIVES)
 
-[REFERENCES](#6-references)
+2. [LITERATURE SURVEY](#2-Literature-Survey)
 
-### 1. INTRODUCTION
+3. [THE ZERO-TRUST PARADIGM](#3-the-zero-trust-paradigm)
+
+4. [METHODOLOGY](#4-methodology)
+
+    1. [SIMULATED IOT NETWORK](#41-simulated-iot-network)
+    
+      1. [SENSOR SERVER](#411-sensor-server)
+      
+      2. [MAIN SERVER](#412-main-server)
+      
+      3. [ACTUATOR SERVER](#413-actuator-server)
+      
+    2. [ZERO-TRUST IMPLEMENTATION](#42-zero-trust-implementation)
+    
+    3. [PHYSICAL IoT IMPLEMENTATION](#43-physical-iot-implementation) 
+    
+    4. [DEMONSTRATING SECURITY](#44-demonstrating-security)
+    
+5. [CONCLUSION](#5-conclusion)
+
+   5.1 [FUTURE SCOPE](#51-future-scope) 
+
+6. [REFERENCES](#6-references)
+
+### 1. INTRODUCTION:
 Internet-of-Things (IoT) is one the key concepts leading into Industry 4.0. It is the integration of all devices over a single network, effectively communicating to one another, setting up a continuous stream of data allowing all devices on the network to access the same for effective decision-making, thus improving the state-of-art of industries. All this data is freely accessible and is stored on low-power, limited capability IoT devices, thus severely crippling the security for the same. The state of the cyber-landscape is such that the more integrated and exposed a system is, the easier it is for malicious actors to exploit the same. IoT is particularly at risk, due to low grade of security in IoT devices. 
 
 Among the many methods proposed and used in the industry to secure the same, the Zero-Trust Paradigm is a promising new idea. Its novelty lies in the fact that unlike traditional perimeter-based methods, Zero-Trust preaches complete isolation and segmentation, even within a network. It aims to secure all data and functionality of the network and its nodes by verifying and encrypting all data and communications, as well as granting only required privileges post authentication on-demand.
@@ -23,7 +49,7 @@ Zero-Trust has an edge over perimeter based security because of the human factor
 
 Despite the obvious advantages in adopting Zero-Trust, it still is an idea, and there is no codification in guidelines of adoption. There are multiple implementations by multiple organisations, each tailoring the guidelines to match their requirements. The lack of standardisation, combined with the need for investment in changing the landscape of the internal network have been major detriments to the adoption of this paradigm.
 
-##### 1.1. OBJECTIVES:
+#### 1.1. OBJECTIVES:
 This work has the following objectives:
 - Simulate an IoT network by building everything from the basic connections and implementing a basic security model in accordance to the Zero-Trust principles.
 - Verify the adaptability of the security model by deploying it in a similar IoT network.
@@ -64,7 +90,7 @@ Keeping in mind principles of Zero-Trust, an IoT network is simulated, and then 
 
 _Figure 2: Architecture of IoT Network system._
 
-##### 4.1 SIMULATED IOT NETWORK:
+#### 4.1 SIMULATED IOT NETWORK:
 
 This IoT network becomes the testing ground to deploy the Zero-Trust model. The architecture of this network is designed keeping the aspects of segmentation and localization in mind. Home automation systems are generally controlled by a central server, either set locally, or in the cloud. All sensors collect and send their data to this server, logs the data and communications, and takes a decision based off the same. It then instructs the actuators to perform necessary actions.
 
@@ -80,7 +106,7 @@ This design keeps in mind the ideas of Zero_Trust, thus segmenting and localisin
 
 All servers are simulated on Amazon Web Services Elastic Compute Cloud (EC2 instances). Python3 is the primary choice of programming language, and Socket programming is used for all communications. This is due to the low-level control offered by sockets, which is helpful to customise the network to match our security requirements. The data for the IoT network to run on is simulated using Azure IoT Central, which generates telemetry based on device templates defined by the user.
 
-###### 4.1.1 SENSOR SERVER:
+##### 4.1.1 SENSOR SERVER:
 
 The sensor server as described above has the function of collecting data from the sensors and presenting it to the main server. The data to be collected in this simulation was generated prior from Microsoft Azure’s IoT Central, and stored as .csv files in the sensor server. It is then retrieved and sent to the main server when required.
 
@@ -100,7 +126,7 @@ _Figure 6: Simulated data from Azure IoT Central._
 
 _Figure 7: Sensor server on AWS with data as .csv files_
 
-###### 4.1.2 MAIN SERVER:
+##### 4.1.2 MAIN SERVER:
 
 This server is the central portion of the network, acting as an interface for all communications. Despite its control role, it does not make any decisions regarding actuation, rather provides the actuator server the data necessary to make the same decisions. It must be noted that, this server refrains from sending any sensitive data to the sensor server, and sends data from logs to the actuator server only when an authenticated request arrives, and even then, the data required for the current computation is only shared.
 
@@ -112,7 +138,7 @@ _Figure 8: Main Server_
 
 _Figure 9: Logging being done on the Main Server._
 
-###### 4.1.3 ACTUATOR SERVER:
+##### 4.1.3 ACTUATOR SERVER:
 
 This server connects directly to the deployed actuators, and acts as the means to communicate to the same. Actuator server gets data it specifically requests for from the main server and computes the conditions to be matched for specific actuation. 
 
@@ -120,7 +146,7 @@ This server connects directly to the deployed actuators, and acts as the means t
 
 _Figure 10: Actuator server_
 
-##### 4.2 ZERO-TRUST IMPLEMENTATION:
+#### 4.2 ZERO-TRUST IMPLEMENTATION:
 
 ![Workflow Diagram](https://user-images.githubusercontent.com/66631868/209819584-7349fad9-1f72-4af1-a6e3-83b5c1e2c782.png)
 
@@ -144,7 +170,7 @@ _Figure 13: Main Server Messages_
 
 _Figure 14: Actuator Server Messages_
 
-##### 4.3 PHYSICAL IoT IMPLEMENTATION:
+#### 4.3 PHYSICAL IoT IMPLEMENTATION:
 
 The principles and concepts applied to the above Simulated network are followed and a physical IoT network is implemented. It is inspired from the implementation of a smart refrigerator from Mahajan et al., and contains a temperature sensor to sense ambient temperature inside the fridge and an ultrasound sensor to detect distance to the closest body, used to check for the number of eggs present. For actuation, based on the received data, a servo motor is implemented to change the intensity of cooling, and there are LEDs which are used to alert the user periodically about the status of eggs’ availability.
 
@@ -244,7 +270,7 @@ The Main Server encrypts all data using the RSA algorithm, and stores all the da
 
 _Figure 36: Encrypted Logs on Main Server_
 
-##### 4.4 DEMONSTRATING SECURITY:
+#### 4.4 DEMONSTRATING SECURITY:
 
 This project is an attempt at using the Zero-Trust ideology to secure an IoT network, thus security testing is performed directly on the physical implementation of the network. The scenario where an adversary discovers a Security Misconfiguration in the Raspberry Pi 4 used as Sensor Server, i.e. unchanged default username and password. This is part of the OWASP Top 10:2021 [6], specifically A05 Security Misconfiguration, and holds the position for the fifth most common vulnerability, with an expected increase in occurrence with the industry moving towards highly configurable software.
 
@@ -286,13 +312,13 @@ _Figure 42: Cryptographic Failure_
 Despite the adversary gaining access to the Main Server, they are unable to request the data stored in Logs due to design of the system. The only communication to the Sensor Server enabled is the sharing of the RSA public key. This Security by Design is the original idea of Zero-Trust as proposed by Kindervag [3]. Following this principle, the Main Server is designed to communicate very briefly with the Sensor Server, share the Public Key for encryption, receive the current data from the servers and immediately cease connection, closing the socket. It cannot be requested to send any data as it does not even support the functionality, and connection by any other socket is impossible because of the firewall blocking all other ports. Thus, while the real-time data can be stolen, all historical data stored in logs are secured. 
 
 
-### 5. CONCLUSION
+### 5. CONCLUSION:
 
 This work has been an attempt to demonstrate the principles of Zero-Trust security in an IoT setting, which is insecure by nature. Thus, following the principle of Security by Design, we have illustrated how data can be safeguarded from attacks by a malicious intruder, who has managed to completely compromise one of the three main servers of the architecture. 
 
 The usage of temperature sensor, and ultrasonic sensor must be viewed as a placeholder for more significant and critical data such as monitoring a patient in a medical scenario, or the atmospheric conditions of a room containing artefacts. In these scenarios, the security of the data is of paramount importance, both in such that they cannot be tampered with, nor stolen. Thus, implementation of similarly designed networks in those scenarios would improve the security of the insecure IoT devices.
 
-### 5.1 FUTURE SCOPE:
+#### 5.1 FUTURE SCOPE:
 
 This is a very primitive implementation, and by taking into account the recommendations of industry standard practices, the security can be improved drastically. The security testing done is also very limited in scope and following the standards of an Industrial Red-teaming operation, i.e. thorough examination of the network by taking offensive action against the security will demonstrate the existence of further security flaws. 
 

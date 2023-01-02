@@ -6,6 +6,7 @@ The Internet of Things (IoT) is one of the novel concepts which has taken the wo
 Our project titled “Trust-Free Homes: An Analysis of Performance and Scalability of the Zero-Trust paradigm in Smart Home systems”, aims at implementing a Zero - Trust System to analyse its capabilities in IoT networks. The limited capabilities of IoT devices makes running multiple key-generation algorithms, and key-storage a point of concern, and implementing Zero-Trust without affecting their regular functioning at scale is a challenge. The project will be carried out by simulating the behaviour of IoT devices using Azure’s simulation capabilities for modelling the network, then using Python for implementing a working system on a very small IoT network.
 The efficiency of the implemented Zero-Trust network will be scrutinised, and possible improvements to implementations will be tried. This project is aimed at serving as a guide to a working model of the Zero-Trust guidelines.
 
+
 ### CONTENTS
 
 1. [INTRODUCTION](### 1. INTRODUCTION:)

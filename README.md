@@ -38,6 +38,8 @@ The efficiency of the implemented Zero-Trust network will be scrutinised, and po
 
 6. [REFERENCES](#6-references)
 
+7. [ACKNOWLEDGEMENTS](#7-acknowledgements)
+
 # 1. INTRODUCTION:
 Internet-of-Things (IoT) is one the key concepts leading into Industry 4.0. It is the integration of all devices over a single network, effectively communicating to one another, setting up a continuous stream of data allowing all devices on the network to access the same for effective decision-making, thus improving the state-of-art of industries. All this data is freely accessible and is stored on low-power, limited capability IoT devices, thus severely crippling the security for the same. The state of the cyber-landscape is such that the more integrated and exposed a system is, the easier it is for malicious actors to exploit the same. IoT is particularly at risk, due to low grade of security in IoT devices. 
 
@@ -335,4 +337,4 @@ This system currently lacks an Intrusion Detection and Prevention System (IDPS),
 
 # 7. ACKNOWLEDGEMENTS:
 
-This project would not have been possible without the guidance of Dr. V Jeyalakshmi of Department of ECE, CEG, Anna University, whose constant guidance and support has been a source of inspiration and drive for us. We also thank the Department of ECE, CEG, Anna University for allowing us this opportunity to work on this project during our seventh semester. 
+This project would not have been possible without the help of Dr. V Jeyalakshmi of Department of ECE, CEG, Anna University, whose constant guidance and support has been a source of inspiration and drive for us. We also thank the Department of ECE, CEG, Anna University for allowing us this opportunity to work on this project during our seventh semester. 

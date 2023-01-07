@@ -332,3 +332,7 @@ This system currently lacks an Intrusion Detection and Prevention System (IDPS),
 4. Mahajan, M. P. Nikam, R. R. Patil, V. P. Dond, R. D. (2017) ‘Smart Refrigerator Using IOT’, International Journal of Latest Engineering Research and Applications (IJLERA), Volume – 02, Issue – 03,  PP – 86-91
 5. Palmo, Y. Tanimoto, S. Sato, S. and Kanai, A. (2021) ‘A Consideration of Scalability for Software Defined Perimeter Based on the Zero-trust Model’, 10th International Congress on Advanced Applied Informatics (IIAI-AAI)
 6. owasp.org/Top10/
+
+# 7. ACKNOWLEDGEMENTS:
+
+This project would not have been possible without the guidance of Dr. V Jeyalakshmi of Department of ECE, CEG, Anna University, whose constant guidance and support has been a source of inspiration and drive for us. We also thank the Department of ECE, CEG, Anna University for allowing us this opportunity to work on this project during our seventh semester. 
